@@ -1,17 +1,34 @@
-# Cynthia Selemale - Portfolio
+# Cynthia Selemale | Portfolio
 
-Single-page portfolio (index.html) with all documents in /documents.
+Welcome to my personal portfolio. I’m an ICT Project Coordinator interested in opportunities where business needs, technology and data come together.
+This portfolio introduces my background, skills and projects, including my work on a food security innovation project developed for the GirlCode Hackathon 2024.
 
-## View in VS Code
-1. Unzip this folder and open it in VS Code (File > Open Folder).
-2. Install the "Live Server" extension, right-click index.html and choose "Open with Live Server".
+## Portfolio
 
-## Host free on GitHub Pages
-1. Create a new public repository on GitHub (e.g. `portfolio`, or `<username>.github.io` for a root URL).
-2. Upload everything in this folder (index.html, README.md and the documents folder), keeping the folder structure.
-3. Go to Settings > Pages. Under "Build and deployment", choose Source: "Deploy from a branch", Branch: main, Folder: / (root). Save.
-4. After a minute or two your site is live at https://<username>.github.io/<repository-name>/
+🌐 **View the live portfolio:**  
+[https://cynthiaselemale.github.io/BC_Selemale_Portfolio/](https://cynthiaselemale.github.io/BC_Selemale_Portfolio/)
 
-## Notes
-- Keep the file names inside /documents unchanged; the buttons on the page link to them.
-- Only upload documents you are comfortable having public. Anything in a public repository can be downloaded by anyone.
+## Areas of interest
+- ICT project coordination and project support
+- Junior analyst and graduate opportunities
+- Business and data analysis
+- Software and web development
+- Technology for social impact
+
+## Skills and technologies
+- **Programming and web:** Java, HTML, CSS, JavaScript
+- **Databases:** SQL, MySQL
+- **Frameworks and tools:** Spring Boot, REST APIs
+- **Other:** Agile/Scrum, JUnit, Tableau
+- 
+## Certifications
+
+My professional learning includes certifications in IBM Z, z/OS networking and security, BMC AMI monitoring and storage, and Oracle Java programming.
+
+## Connect
+- **GitHub:** [@CynthiaSelemale](https://github.com/CynthiaSelemale)
+- **LinkedIn:** [Cynthia Selemale](https://za.linkedin.com/in/cynthia-selemale-94b3162aa)
+
+---
+
+This portfolio is a work in progress. I’m continuing to build my experience across ICT project coordination, analysis and technology.
