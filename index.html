@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Cynthia Selemale | Project Coordinator</title>
+<title>Cynthia Selemale | Project Coordinator · Business Analyst · Data Analyst</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#282826;--dawn:#D6759E;--mist:#C6C6C6;--foam:#F5F5F5;--bg:#F5F5F5;--card:#fff;--text:#282826;--muted:#5b5b57;--line:#e2e2e2;--tint:#f6e4ec;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -36,7 +36,20 @@ nav a.l.on{background:var(--ink);color:var(--foam)}
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-top:48px}
 .hero h1{font-size:clamp(44px,7vw,76px);letter-spacing:-1.5px}
 .hero h1 span{color:var(--dawn)}
-.role{font-size:20px;font-weight:500;margin:10px 0 16px}
+.role{display:flex;flex-wrap:wrap;align-items:flex-start;column-gap:14px;row-gap:2px;font-size:20px;font-weight:500;margin:10px 0 16px}
+.flipwrap{display:inline-block;position:relative;padding-bottom:8px;cursor:default;font-weight:600}
+.flipbox{display:block;position:relative;height:1.4em;perspective:600px;overflow:visible}
+.flipbox .ph{display:block;position:absolute;left:0;top:0;white-space:nowrap;color:var(--dawn);transform-origin:50% 50%;backface-visibility:hidden;transition:transform .7s cubic-bezier(.6,.05,.2,1),opacity .7s;will-change:transform}
+.flipbox .ph.cur{transform:rotateX(0);opacity:1}
+.flipbox .ph.out{transform:rotateX(90deg);opacity:0}
+.flipbox .ph.in{transform:rotateX(-90deg);opacity:0;transition:none}
+.flipsizer{visibility:hidden;white-space:nowrap;display:block;height:0;overflow:hidden}
+.flipline{position:absolute;left:0;bottom:0;height:3px;width:100%;border-radius:2px;background:var(--line);overflow:hidden}
+.flipline::after{content:"";position:absolute;top:0;left:0;height:100%;width:100%;background:var(--dawn);border-radius:2px;transform:scaleX(0);transform-origin:left center;animation:fline 3s linear infinite}
+.flipwrap.paused .flipline::after{animation-play-state:paused}
+@keyframes fline{0%{transform:scaleX(0);transform-origin:left center}49.9%{transform:scaleX(1);transform-origin:left center}50%{transform:scaleX(1);transform-origin:right center}100%{transform:scaleX(0);transform-origin:right center}}
+.role .tag{font-weight:500}
+@media(max-width:560px){.role{font-size:18px}}
 .hero p.muted{max-width:520px}
 .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
 .stats{display:flex;gap:28px;margin-top:34px;flex-wrap:wrap}
@@ -91,12 +104,46 @@ dialog .x{float:right}.fl{display:inline-block;margin:0 8px 8px 0;font-weight:60
 .ti{position:relative;padding-left:52px}
 .ti::before{content:"";position:absolute;top:2px;left:0;width:22px;height:22px;border-radius:50%;background:var(--dawn);border:4px solid var(--bg)}
 .ti time{font-weight:600;color:var(--dawn)}.ti h3{font-size:20px;margin:4px 0}.ti .co{font-weight:500}.ti p{font-size:15px;margin:8px 0 0;color:var(--muted)}
-.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:28px}
-.st{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 8px;font:600 15px Jost,sans-serif;color:var(--text);cursor:pointer;transition:.2s;display:flex;flex-direction:column;align-items:center;gap:8px}
-.st span{font-size:26px;width:54px;height:54px;border-radius:50%;background:var(--tint);display:grid;place-items:center}
-.st[aria-pressed=true]{background:var(--ink);color:var(--foam);border-color:var(--ink)}
-.st[aria-pressed=true] span{background:var(--dawn)}
-#pd{background:var(--tint);border-radius:18px;padding:20px 24px;margin-top:14px;min-height:72px;font-size:18px}
+/* ===== Process timeline ===== */
+.tlr{position:relative;display:flex;flex-direction:column;gap:46px;margin-top:44px;padding-bottom:8px}
+.tlsvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:0}
+.pbase{fill:none;stroke:var(--mist);stroke-width:3;stroke-dasharray:7 9;stroke-linecap:round;opacity:.55}
+.pfill{fill:none;stroke:var(--dawn);stroke-width:3.5;stroke-dasharray:7 9;stroke-linecap:round}
+.pnode{pointer-events:auto;cursor:pointer}
+.pnode circle{r:20px;fill:var(--card);stroke:var(--mist);stroke-width:2;transition:fill .35s,stroke .35s}
+.pnode text{fill:var(--text);font:600 16px Jost,sans-serif;text-anchor:middle;dominant-baseline:central;transition:fill .35s}
+.pnode.on circle{fill:var(--dawn);stroke:var(--dawn)}
+.pnode.on text{fill:#282826}
+.pfin circle{r:26px}
+.pfin .chk{fill:none;stroke:var(--mist);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;transition:stroke .35s}
+.pfin.on circle{fill:#282826;stroke:var(--dawn);stroke-width:3}
+.pfin.on .chk{stroke:var(--dawn)}
+.rocket{transition:opacity .3s}
+.rbody{fill:#fff;stroke:#282826;stroke-width:1.6;stroke-linejoin:round}
+.rwin{fill:var(--dawn);stroke:#282826;stroke-width:1}
+.rfin{fill:var(--dawn);stroke:#282826;stroke-width:1.2;stroke-linejoin:round}
+.flame{fill:#ffb36b;transform-box:fill-box;transform-origin:50% 0;animation:fl2 .25s ease-in-out infinite alternate}
+@keyframes fl2{from{transform:scaleY(.7)}to{transform:scaleY(1.3)}}
+.ps{position:relative;z-index:1;width:calc(50% - 60px);text-align:left;font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 24px;cursor:pointer;overflow:hidden;transition:opacity .45s,transform .45s,border-color .3s,box-shadow .3s}
+.ps.l{align-self:flex-start}.ps.r{align-self:flex-end}
+.ps .pi{width:48px;height:48px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-size:24px;margin-bottom:12px;transition:background .35s}
+.ps h3{font-size:20px;margin:0 0 2px}
+.ps .pt{display:block;color:var(--dawn);font-weight:600;font-size:15px;margin-bottom:8px}
+.ps p{margin:0;font-size:15px;color:var(--muted)}
+.ps .pn{position:absolute;right:18px;bottom:4px;font-size:64px;font-weight:700;line-height:1;color:var(--text);opacity:.06;pointer-events:none}
+.tlr.js .ps:not(.on){opacity:.5}
+.tlr.js .ps.l:not(.on){transform:translateX(-14px)}
+.tlr.js .ps.r:not(.on){transform:translateX(14px)}
+.ps.on{border-color:var(--dawn);box-shadow:0 12px 32px rgba(214,117,158,.22)}
+.ps.on .pi{background:var(--dawn)}
+.ps.on:hover{transform:translateY(-4px)}
+.pend{height:70px}
+@media(max-width:860px){
+.tlr{gap:34px}
+.ps{width:calc(100% - 56px)}
+.ps.l,.ps.r{align-self:flex-end}
+.tlr.js .ps.l:not(.on),.tlr.js .ps.r:not(.on){transform:translateX(14px)}
+}
 footer{background:var(--ink);color:var(--foam);padding:64px 0 28px;margin-top:32px}
 .ft{display:grid;grid-template-columns:1.2fr 1fr;gap:40px}
 footer h2{font-size:clamp(30px,4.5vw,44px)}footer h2::after{display:none}
@@ -129,7 +176,10 @@ footer h2 em{font-style:normal;color:var(--dawn)}
 <div>
 <p class="muted" style="margin:0 0 6px;font-weight:500">Hi, I’m</p>
 <h1>Cynthia <span>Selemale</span></h1>
-<p class="role">Project Coordinator | Bridging Business, Technology &amp; Data</p>
+<p class="role" aria-label="Project Coordinator, Business Analyst and Data Analyst">
+<span class="flipwrap" id="flipwrap"><span class="flipbox" id="flipbox" aria-hidden="true"><span class="ph cur">Project Coordinator</span></span><span class="flipsizer" aria-hidden="true">Project Coordinator</span><span class="flipline" aria-hidden="true"></span></span>
+<span class="tag">| Bridging Business, Technology &amp; Data</span>
+</p>
 <p class="muted">I bridge the gap between business stakeholders and technical teams to deliver solutions that create measurable business value. I turn complex requirements into structured solutions that drive successful project outcomes.</p>
 <div class="cta"><a class="btn p" href="#work">View my work</a><a class="btn" href="Cynthia-Selemale-CV.pdf" download>Download CV ↓</a></div>
 <!--<div class="stats"><div><b>BA · PM · QA</b><small>One coordinator, three lenses</small></div><div><b>BMC · IBM z/OS</b><small>Enterprise tech</small></div></div>-->
@@ -158,7 +208,16 @@ footer h2 em{font-style:normal;color:var(--dawn)}
 <div class="ti"><time>Jan 2025 – Jul 2025</time><h3>Mainframe Operations Intern</h3><div class="co">New Island Technologies | Newtons Training Academy</div><p>Supported mainframe monitoring, data analysis, capacity planning, security reviews, operational reporting and documentation in IBM z/OS environments.</p></div>
 <div class="ti"><time>Aug 2025 – Present</time><h3>Project Coordinator</h3><div class="co">New Island Technologies</div><p>Coordinate software implementation projects, run stakeholder communication, gather requirements, support testing, manage project reporting and keep delivery aligned with business objectives.</p></div></div></section>
 <section id="process" class="wrap"><h2>My process</h2>
-<div class="steps" id="steps"></div><div id="pd" aria-live="polite"></div></section>
+<p class="muted" style="margin:0">Scroll and follow the rocket from first conversation to measurable results, or tap a step to jump to it.</p>
+<div class="tlr" id="tlr">
+<svg class="tlsvg" id="tlsvg" aria-hidden="true"></svg>
+<button class="ps l" type="button"><span class="pn">01</span><div class="pi">🔎</div><h3>Discover</h3><span class="pt">Understand goals &amp; scope</span><p>Understand stakeholder objectives, business challenges and project requirements.</p></button>
+<button class="ps r" type="button"><span class="pn">02</span><div class="pi">📈</div><h3>Analyse</h3><span class="pt">Processes, data &amp; risk</span><p>Evaluate processes, data, risks and opportunities to find practical solutions.</p></button>
+<button class="ps l" type="button"><span class="pn">03</span><div class="pi">✏️</div><h3>Design</h3><span class="pt">Requirements &amp; models</span><p>Create business requirements, process models, documentation and reporting frameworks.</p></button>
+<button class="ps r" type="button"><span class="pn">04</span><div class="pi">✅</div><h3>Validate</h3><span class="pt">Testing &amp; UAT</span><p>Support testing, UAT and quality assurance to make sure outcomes land.</p></button>
+<button class="ps l" type="button"><span class="pn">05</span><div class="pi">🔁</div><h3>Measure &amp; Improve</h3><span class="pt">Reports &amp; feedback</span><p>Use analytics, reporting and stakeholder feedback to drive continuous improvement.</p></button>
+<div class="pend" id="pend" aria-hidden="true"></div>
+</div></section>
 </main>
 <footer id="contact"><div class="wrap"><div class="ft">
 <div><h2>Let’s build something <em>meaningful</em> together.</h2></div>
@@ -197,10 +256,122 @@ $('#cards').innerHTML=P.map((p,i)=>`<button class="card" data-i="${i}">${p.img?`
 const dg=$('#dg');
 $$('.card').forEach(c=>c.onclick=()=>{const p=P[c.dataset.i];$('#dt').textContent=p.n;$('#dtl').textContent=p.tg;$('#dd').innerHTML=`${p.img?`<img class="mi" src="${p.img}" alt="${p.n} dashboard overview">`:''}${p.c?`<dt>Challenge</dt><dd>${p.c}</dd><dt>My role</dt><dd>${p.r}</dd><dt>What I delivered</dt><dd>${p.w}</dd>${p.k?`<dt>Key findings</dt><dd>${p.k}</dd>`:''}`:`<dd>${p.d}</dd>`}${p.f?`<dt>Project files</dt><dd>${(p.docs||[]).map(x=>`<a class="fl" href="${x[1]}" download>${x[0]} ↓</a>`).join('')}<a class="fl dv" href="${p.f}" target="_blank" rel="noopener">${p.fn} ↗</a></dd>`:''}`;dg.showModal()});
 $('#dx').onclick=()=>dg.close();dg.onclick=e=>{if(e.target===dg)dg.close()};
-const S=[['🔎','Discover','Understand stakeholder objectives, business challenges and project requirements.'],['📈','Analyse','Evaluate processes, data, risks and opportunities to find practical solutions.'],['✏️','Design','Create business requirements, process models, documentation and reporting frameworks.'],['✅','Validate','Support testing, UAT and quality assurance to make sure outcomes land.'],['🔁','Measure & Improve','Use analytics, reporting and stakeholder feedback to drive continuous improvement.']];
-$('#steps').innerHTML=S.map((s,i)=>`<button class="st" data-i="${i}" aria-pressed="false"><span>${s[0]}</span>${s[1]}</button>`).join('');
-function step(i){$$('.st').forEach(b=>b.setAttribute('aria-pressed',b.dataset.i==i));$('#pd').innerHTML=`<b>${S[i][1]}.</b> ${S[i][2]}`}
-$$('.st').forEach(b=>b.onclick=()=>step(b.dataset.i));step(0);
+(function(){
+const box=$('#tlr'),svg=$('#tlsvg'),endEl=$('#pend');
+if(!box||!svg||!endEl)return;
+box.classList.add('js');
+const NS='http://www.w3.org/2000/svg';
+const cards=$$('#tlr .ps');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mq=matchMedia('(max-width:860px)');
+let base,mpath,rocket,nodes=[],fin,pts=[],nodeLen=[],L=0,cur=0,raf=null,t=null;
+function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e}
+function lenForY(y){let lo=0,hi=L;for(let k=0;k<22;k++){const mid=(lo+hi)/2;if(base.getPointAtLength(mid).y<y)lo=mid;else hi=mid}return(lo+hi)/2}
+function build(){
+  svg.innerHTML='';
+  const W=box.clientWidth,H=box.clientHeight,m=mq.matches;
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);
+  const bt=box.getBoundingClientRect().top;
+  const cx=m?24:W/2,amp=m?12:Math.min(64,W*.07);
+  pts=cards.map(c=>{const r=c.getBoundingClientRect();return r.top-bt+r.height/2});
+  const er=endEl.getBoundingClientRect();pts.push(er.top-bt+er.height/2);
+  let d='M'+cx+','+pts[0];
+  for(let i=0;i<pts.length-1;i++){
+    const a=pts[i],b=pts[i+1],s=i%2?-1:1,dy=b-a;
+    d+=' C'+(cx+s*amp)+','+(a+dy*.1)+' '+(cx+s*amp)+','+(a+dy*.9)+' '+cx+','+b;
+  }
+  const defs=el('defs',{});
+  const mk=el('mask',{id:'pmask',maskUnits:'userSpaceOnUse',x:0,y:0,width:W,height:H},defs);
+  mpath=el('path',{d:d,fill:'none',stroke:'#fff','stroke-width':8,'stroke-linecap':'round'},mk);
+  base=el('path',{d:d,class:'pbase'});
+  el('path',{d:d,class:'pfill',mask:'url(#pmask)'});
+  L=base.getTotalLength();
+  mpath.style.strokeDasharray=L+' '+L;
+  nodes=pts.slice(0,-1).map((y,i)=>{
+    const g=el('g',{class:'pnode',transform:'translate('+cx+','+y+')'});
+    el('circle',{r:20},g);
+    const tx=el('text',{y:1},g);tx.textContent=i+1;
+    g.addEventListener('click',()=>go(i));
+    return g;
+  });
+  fin=el('g',{class:'pnode pfin',transform:'translate('+cx+','+pts[pts.length-1]+')'});
+  el('circle',{r:26},fin);
+  el('path',{d:'M-10,0 L-3,8 L11,-8',class:'chk'},fin);
+  rocket=el('g',{class:'rocket'});
+  el('path',{class:'flame',d:'M-4,10 Q0,28 4,10Z'},rocket);
+  el('path',{class:'rbody',d:'M0,-17 C9,-9 9,4 5,11 L-5,11 C-9,4 -9,-9 0,-17Z'},rocket);
+  el('circle',{cx:0,cy:-3,r:3.2,class:'rwin'},rocket);
+  el('path',{class:'rfin',d:'M-5,3 L-11,13 L-5,11Z M5,3 L11,13 L5,11Z'},rocket);
+  nodeLen=pts.map(lenForY);
+  cur=calc();render();
+}
+function calc(){
+  const r=box.getBoundingClientRect();
+  const y=innerHeight*.55-r.top;
+  return lenForY(Math.min(pts[pts.length-1],Math.max(pts[0],y)));
+}
+function render(){
+  const p=base.getPointAtLength(cur),
+        a=base.getPointAtLength(Math.max(0,cur-2)),
+        b=base.getPointAtLength(Math.min(L,cur+2));
+  const ang=Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI+90;
+  rocket.setAttribute('transform','translate('+p.x+','+p.y+') rotate('+ang+') scale(1.2)');
+  rocket.style.opacity=cur>=L-4?0:1;
+  mpath.style.strokeDashoffset=L-cur;
+  nodes.forEach((n,i)=>n.classList.toggle('on',cur>=nodeLen[i]-2));
+  cards.forEach((c,i)=>c.classList.toggle('on',cur>=nodeLen[i]-40));
+  fin.classList.toggle('on',cur>=L-2);
+}
+function tick(){
+  raf=null;
+  const target=calc();
+  cur+=(target-cur)*(reduce?1:.14);
+  if(Math.abs(target-cur)<.3)cur=target;
+  render();
+  if(cur!==target)raf=requestAnimationFrame(tick);
+}
+function kick(){if(!raf)raf=requestAnimationFrame(tick)}
+function go(i){
+  const r=box.getBoundingClientRect();
+  scrollTo({top:scrollY+r.top+pts[i]-innerHeight*.55,behavior:reduce?'auto':'smooth'});
+}
+cards.forEach((c,i)=>c.addEventListener('click',()=>go(i)));
+addEventListener('scroll',kick,{passive:true});
+const rebuild=()=>{clearTimeout(t);t=setTimeout(build,60)};
+if('ResizeObserver' in window)new ResizeObserver(rebuild).observe(box);
+addEventListener('resize',rebuild);
+addEventListener('load',build);
+build();
+})();
+(function(){
+const roles=['Project Coordinator','Business Analyst','Data Analyst'];
+const wrap=$('#flipwrap'),box=$('#flipbox');
+if(!wrap||!box)return;
+const sizer=wrap.querySelector('.flipsizer');
+sizer.textContent=roles.reduce((a,b)=>b.length>a.length?b:a);
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let i=0,timer=null,hovering=false;
+function flip(){
+  const next=(i+1)%roles.length;
+  const cur=box.querySelector('.ph.cur');
+  const nx=document.createElement('span');
+  nx.className='ph in';nx.textContent=roles[next];
+  box.appendChild(nx);
+  void nx.offsetWidth;
+  cur.classList.remove('cur');cur.classList.add('out');
+  nx.classList.remove('in');nx.classList.add('cur');
+  setTimeout(()=>cur.remove(),750);
+  i=next;
+}
+function start(){if(reduce||timer)return;timer=setInterval(flip,3000)}
+function stop(){clearInterval(timer);timer=null}
+wrap.addEventListener('mouseenter',()=>{hovering=true;wrap.classList.add('paused');stop()});
+wrap.addEventListener('mouseleave',()=>{hovering=false;wrap.classList.remove('paused');start()});
+wrap.addEventListener('focusin',()=>{wrap.classList.add('paused');stop()});
+wrap.addEventListener('focusout',()=>{if(!hovering){wrap.classList.remove('paused');start()}});
+document.addEventListener('visibilitychange',()=>{document.hidden?stop():(!hovering&&start())});
+start();
+})();
 const ts=$('#toast');
 $$('.cp').forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText(b.dataset.c);ts.textContent='Copied';}catch(e){ts.textContent='Select and copy manually'}ts.classList.add('s');setTimeout(()=>ts.classList.remove('s'),1800)});
 </script></body></html>
